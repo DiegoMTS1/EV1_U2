@@ -1,6 +1,8 @@
 import { HashRouter, NavLink, Navigate, Route, Routes } from 'react-router-dom'
 import Inicio from './pages/Inicio'
 import MisCompaneros from './pages/MisCompaneros'
+import CrearPublicacion from './pages/CrearPublicacion'
+import Publicaciones from './pages/Publicaciones'
 import Registrarme from './pages/Registrarme'
 
 const linkNav = ({ isActive }) =>
@@ -31,6 +33,12 @@ function App() {
               <NavLink to="/mis-companeros" className={linkNav}>
                 Mis compañeros
               </NavLink>
+              <NavLink to="/publicaciones" className={linkNav}>
+                Publicaciones
+              </NavLink>
+              <NavLink to="/post" className={linkNav}>
+                Crear publicación
+              </NavLink>
               <NavLink to="/registrarme" className={linkNav}>
                 Registrarme
               </NavLink>
@@ -42,6 +50,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Inicio />} />
             <Route path="/mis-companeros" element={<MisCompaneros />} />
+            <Route path="/publicaciones" element={<Publicaciones />} />
+            <Route path="/post" element={<CrearPublicacion />} />
             <Route path="/registrarme" element={<Registrarme />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

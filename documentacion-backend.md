@@ -52,7 +52,7 @@ API lista en https://backend-react-fcsl.onrender.com/api-backend
 | GET | `/auth/me` | Sí | Datos del usuario autenticado |
 | GET | `/posts` | No | Listar todos los posts |
 | GET | `/posts/:id` | No | Post completo: autor, conteos, comentarios y reacciones |
-| POST | `/posts` | Sí | Crear un post |
+| POST | `/posts` | Opcional | Crear un post como usuario o anónimo |
 | PUT | `/posts/:id` | Sí | Editar un post (solo el autor) |
 | DELETE | `/posts/:id` | Sí | Eliminar un post (solo el autor) |
 | GET | `/posts/:postId/reactions` | No | Ver reacciones de un post |
@@ -269,11 +269,11 @@ Ejemplo: `GET https://backend-react-fcsl.onrender.com/api-backend/posts/507f191e
 
 ### POST `/posts`
 
-Crea un post. El autor se toma del token (no se envía en el body). **Requiere token.**
+Crea un post. El token es opcional: con token se usa el usuario autenticado como autor; sin token, se usa el valor opcional `authorName` o `Anónimo` si no se envía.
 
-**Headers:** `Authorization: Bearer <token>`
+**Headers con cuenta:** `Authorization: Bearer <token>`
 
-**Body:**
+**Body con cuenta:**
 
 ```json
 {
@@ -281,6 +281,18 @@ Crea un post. El autor se toma del token (no se envía en el body). **Requiere t
   "content": "Contenido del post..."
 }
 ```
+
+**Body anónimo:**
+
+```json
+{
+  "title": "Una idea",
+  "content": "Contenido de la publicación...",
+  "authorName": "Alias"
+}
+```
+
+`authorName` es opcional y admite hasta 40 caracteres. Si lo omites o lo dejas vacío desde el frontend, el post queda sin usuario asociado y se guarda como `Anónimo`.
 
 **Respuesta `201 Created`:**
 
@@ -296,7 +308,9 @@ Crea un post. El autor se toma del token (no se envía en el body). **Requiere t
 }
 ```
 
-**Errores posibles:** 400 por datos inválidos, 401 sin token.
+En un post anónimo, `author` será `null` y `authorName` contendrá el nombre enviado o `Anónimo`.
+
+**Errores posibles:** 400 por datos inválidos, 401 si se envía un token inválido.
 
 ### PUT `/posts/:id`
 

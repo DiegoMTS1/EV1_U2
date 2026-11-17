@@ -6,6 +6,8 @@ Frontend en React + Vite para la comunidad de la clase: registro de estudiantes 
 
 - **Inicio** (`/`): página de bienvenida.
 - **Mis compañeros** (`/#/mis-companeros`): lista los usuarios registrados (`GET /users`) con buscador por nombre, email o RUT.
+- **Publicaciones** (`/#/publicaciones`): muestra publicaciones y conteos de reacciones (`GET /posts`); permite reaccionar con seis emojis con o sin cuenta.
+- **Crear publicación** (`/#/post`): permite publicar como anónimo con un nombre opcional (por defecto, **Anónimo**) o con una cuenta (`POST /posts`).
 - **Registrarme** (`/#/registrarme`): formulario de registro (`POST /auth/register`); al registrarse guarda `token` y `user` en `localStorage`.
 
 ## Instalación
